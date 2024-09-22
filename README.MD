@@ -1,45 +1,62 @@
-# Compose Multiplatform Application
+<h1 align="center">KMM Crypto</h1><br>
 
-## Before running!
+<div align="center">
+<a href="https://opensource.org/licenses/Apache-2.0"><img alt="License" src="https://img.shields.io/badge/License-Apache%202.0-blue.svg"/></a>
+<a href="https://android-arsenal.com/api?level=21" rel="nofollow">
+    <img alt="API" src="https://img.shields.io/badge/API-21%2B-brightgreen.svg?style=flat" style="max-width: 100%;">
+</a>
+  <img src="https://img.shields.io/badge/Platform-Android-brightgreen.svg?logo=android" alt="Badge Android" />
+  <img src="https://img.shields.io/badge/Platform-iOS%20%2F%20macOS-lightgrey.svg?logo=apple" alt="Badge iOS" />
+  <img src="https://img.shields.io/badge/Platform-JVM-8A2BE2.svg?logo=openjdk" alt="Badge JVM" />
+    <img src="https://img.shields.io/badge/Platform-WASM%20%2F%20JS-yellow.svg?logo=javascript" alt="Badge JS" />
+<a href="https://github.com/the-best-is-best/"><img alt="Profile" src="https://img.shields.io/badge/github-%23181717.svg?&style=for-the-badge&logo=github&logoColor=white" height="20"/></a>
+</div>
 
-- check your system with [KDoctor](https://github.com/Kotlin/kdoctor)
-- install JDK 17 or higher on your machine
-- add `local.properties` file to the project root and set a path to Android SDK there
+### This package for encrypt or decrypt data in kotlin multiplatform
 
-### Android
+<hr>
 
-To run the application on android device/emulator:
+[![Maven Central](https://img.shields.io/maven-central/v/io.github.the-best-is-best/kmm-crypto)](https://central.sonatype.com/artifact/io.github.the-best-is-best/kmm-crypto)
 
-- open project in Android Studio and run imported android run configuration
+KMM Crypto is available on `mavenCentral()`.
 
-To build the application bundle:
+```kotlin
+implementation("io.github.the-best-is-best:kmm-crypto:1.0.0")
+```
+## Need add this in pod file if not exist run ` pod init `
+```swift
+pod 'KServices' , '0.1.9'
+```
 
-- run `./gradlew :composeApp:assembleDebug`
-- find `.apk` file in `composeApp/build/outputs/apk/debug/composeApp-debug.apk`
-  Run android simulator UI tests: `./gradlew :composeApp:pixel5Check`
+## How to use it
 
-### Desktop
+### First in androidMain
 
-Run the desktop application: `./gradlew :composeApp:run`
-Run desktop UI tests: `./gradlew :composeApp:jvmTest`
+<br>
 
-### iOS
+```kotlin
+AndroidKMMCrypto.init(this, "key0") // add alias key name
+```
 
-To run the application on iPhone device/simulator:
+### Second how in common make save data
 
-- Open `iosApp/iosApp.xcproject` in Xcode and run standard configuration
-- Or
-  use [Kotlin Multiplatform Mobile plugin](https://plugins.jetbrains.com/plugin/14936-kotlin-multiplatform-mobile)
-  for Android Studio
-  Run iOS simulator UI tests: `./gradlew :composeApp:iosSimulatorArm64Test`
+```kotlin
+  val kmmCrypto = KMMCrypto()
+  kmmCrypto.saveData(
+                "test",
+                "group",
+                "Any data here"
+            )
+```
 
-### JS Browser (Experimental)
+### Third how in common load data
 
-Run the browser application: `./gradlew :composeApp:jsBrowserDevelopmentRun --continue`
-Run browser UI tests: `./gradlew :composeApp:jsBrowserTest`
+```kotlin
+    val scope = rememberCoroutineScope()
+    val kmmCrypto = KMMCrypto()
+    scope.launch {
+      val data = kmmCrypto.loadData("test", "group")
+      println("data loaded $data")
+    }  
 
-### Wasm Browser (Alpha)
-
-Run the browser application: `./gradlew :composeApp:wasmJsBrowserDevelopmentRun --continue`
-Run browser UI tests: `./gradlew :composeApp:wasmJsBrowserTest`
-
+```

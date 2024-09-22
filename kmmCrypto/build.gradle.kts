@@ -44,7 +44,7 @@ tasks.withType<PublishToMavenRepository> {
 
 
 mavenPublishing {
-    coordinates("io.github.the-best-is-best", "kmm-crypto", "1.0.0-7-SNAPSHOT")
+    coordinates("io.github.the-best-is-best", "kmm-crypto", "1.0.0")
 
     publishToMavenCentral(SonatypeHost.S01, true)
     signAllPublications()
@@ -143,11 +143,10 @@ kotlin {
             baseName = "KMMCtypto"
         }
         noPodspec()
-        ios.deploymentTarget = "12.0"  // Update this to the required version
-
+        ios.deploymentTarget = "12.0"  // Adjust this version to match KServices
 
         pod("KServices") {
-            version = "0.1.7"
+            version = "0.1.9"
             extraOpts += listOf("-compiler-option", "-fmodules")
 
         }

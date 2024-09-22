@@ -4,7 +4,7 @@ platform :ios, '12'
 target 'iosApp' do
   # Comment the next line if you don't want to use dynamic frameworks
   use_frameworks!
-  pod "KServices"
+  pod 'KServices' , '0.1.9'
   # Pods for iosApp
 
 end
