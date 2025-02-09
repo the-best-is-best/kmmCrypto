@@ -14,7 +14,11 @@ actual class KMMCrypto {
 
         KServices.saveWithService(
             key, group, data
-        ) {
+        ) { e ->
+            if (e != null) {
+                println("error: ${e.localizedDescription}")
+                return@saveWithService
+            }
             println("data saved")
         }
 
@@ -23,7 +27,11 @@ actual class KMMCrypto {
     fun saveDataType(key: String, group: String, data: NSData) {
         KServices.saveDataTypeWithService(
             key, group, data
-        ) {
+        ) { e ->
+            if (e != null) {
+                println("error: ${e.localizedDescription}")
+                return@saveDataTypeWithService
+            }
             println("data saved")
 
         }
@@ -32,13 +40,16 @@ actual class KMMCrypto {
 
     actual suspend fun loadData(key: String, group: String): String? {
         return suspendCancellableCoroutine { continuation ->
-            KServices.getWithService("test", "man") { v, e ->
+            KServices.getWithService(key, group) { v, e ->
                 if (e == null) {
                     continuation.resume(v)  // Resume with the result
                 } else {
-                    val throwable = e as? Throwable ?: RuntimeException("Unknown error occurred")
+                    if (e.code.toInt() == 1) {
+                        continuation.resume(null)
+                        return@getWithService
+                    }
 
-                    continuation.resumeWithException(throwable)  // Resume with an exception
+                    continuation.resumeWithException(Exception(e.localizedFailureReason))  // Resume with an exception
                 }
             }
         }
@@ -50,12 +61,16 @@ actual class KMMCrypto {
                 if (e == null) {
                     continuation.resume(v)  // Resume with the result
                 } else {
-                    val throwable = e as? Throwable ?: RuntimeException("Unknown error occurred")
 
-                    continuation.resumeWithException(throwable)  // Resume with an exception
+                    continuation.resumeWithException(RuntimeException(e.localizedFailureReason))  // Resume with an exception
                 }
             }
         }
     }
 
+    actual fun deleteData(key: String, group: String) {
+        KServices.deleteDataWithService(key, group)
+    }
+
 }
+

@@ -9,7 +9,7 @@ import java.nio.file.Paths
 import java.nio.file.StandardOpenOption
 import java.security.Key
 import java.security.SecureRandom
-import java.util.Base64
+import java.util.*
 import javax.crypto.Cipher
 import javax.crypto.KeyGenerator
 import javax.crypto.spec.IvParameterSpec
@@ -71,6 +71,13 @@ actual class KMMCrypto {
                 return@withContext decrypt(encryptedData)
             }
             null
+        }
+    }
+
+    actual fun deleteData(key: String, group: String) {
+        val filePath = Paths.get(group).resolve("$key.txt")
+        if (Files.exists(filePath)) {
+            Files.delete(filePath)
         }
     }
 }

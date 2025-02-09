@@ -35,5 +35,14 @@ actual class KMMCrypto {
         }
     }
 
+    actual fun deleteData(key: String, group: String) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            CryptoKeyStore().deleteData(
+                key, group
+            )
 
+        } else {
+            CryptoData().deleteData(key, group)
+        }
+    }
 }

@@ -21,4 +21,9 @@ actual class KMMCrypto {
             window.localStorage.getItem(storageKey)
         }
     }
+
+    actual fun deleteData(key: String, group: String) {
+        val storageKey = "$group-$key"
+        window.localStorage.removeItem(storageKey)
+    }
 }

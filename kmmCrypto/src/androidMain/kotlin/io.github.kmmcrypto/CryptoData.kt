@@ -90,4 +90,10 @@ internal class CryptoData {
             null
         }
     }
+    fun deleteData(key: String, group: String) {
+        val file = File(AndroidKMMCrypto.activity.filesDir, "$group/$key")
+        if (file.exists()) {
+            file.delete()
+        }
+    }
 }

@@ -94,7 +94,7 @@ android {
     signingConfigs {
         getByName("debug") {
             storeFile =
-                file("/Users/michelleraouf/Desktop/kmm/composeMuliplatformLibTemplate/simple/composeApp/src/androidMain/key")
+                file("/Users/michelleraouf/Desktop/kmm/kmmCrypto/simple/composeApp/src/androidMain/key")
             storePassword = "key-pass"
             keyAlias = "key0"
             keyPassword = "key-pass"

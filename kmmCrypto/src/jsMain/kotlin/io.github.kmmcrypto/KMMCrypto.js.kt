@@ -31,4 +31,8 @@ actual class KMMCrypto {
         val bytes = window.asDynamic().CryptoJS.AES.decrypt(encryptedData)
         return bytes.toString(window.asDynamic().CryptoJS.enc.Utf8) as String
     }
+
+    actual fun deleteData(key: String, group: String) {
+        window.localStorage.removeItem("$group-$key")
+    }
 }

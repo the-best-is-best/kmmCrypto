@@ -21,13 +21,13 @@
 KMM Crypto is available on `mavenCentral()`.
 
 ```kotlin
-implementation("io.github.the-best-is-best:kmm-crypto:1.0.2")
+implementation("io.github.the-best-is-best:kmm-crypto:1.1.0")
 ```
 
 ## Need add this in pod file if not exist run ` pod init `
 
 ```swift
-pod 'KServices' , '0.1.9'
+pod 'KServices' , '0.2.2'
 ```
 
 ## How to use it
@@ -60,5 +60,16 @@ AndroidKMMCrypto.init(this, "key0") // add alias key name
       val data = kmmCrypto.loadData("test", "group")
       println("data loaded $data")
     }  
+
+```
+
+### Third how in common delete data
+
+```kotlin
+    val scope = rememberCoroutineScope()
+val kmmCrypto = KMMCrypto()
+scope.launch {
+    kmmCrypto.deleteData("test", "group")
+}
 
 ```
