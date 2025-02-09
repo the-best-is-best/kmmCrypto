@@ -2,16 +2,14 @@
 
 import com.vanniktech.maven.publish.SonatypeHost
 import org.gradle.nativeplatform.platform.internal.DefaultNativePlatform.getCurrentOperatingSystem
-import org.jetbrains.compose.ExperimentalComposeLibrary
-import org.jetbrains.compose.desktop.application.dsl.TargetFormat
 import org.jetbrains.kotlin.gradle.ExperimentalKotlinGradlePluginApi
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 import org.jetbrains.kotlin.gradle.plugin.KotlinSourceSetTree
 
 plugins {
     alias(libs.plugins.multiplatform)
-    alias(libs.plugins.compose.compiler)
-    alias(libs.plugins.compose)
+//    alias(libs.plugins.compose.compiler)
+//    alias(libs.plugins.compose)
     alias(libs.plugins.android.library)
     alias(libs.plugins.native.cocoapods)
 
@@ -44,7 +42,7 @@ tasks.withType<PublishToMavenRepository> {
 
 
 mavenPublishing {
-    coordinates("io.github.the-best-is-best", "kmm-crypto", "1.1.0")
+    coordinates("io.github.the-best-is-best", "kmm-crypto", "1.1.1")
 
     publishToMavenCentral(SonatypeHost.S01, true)
     signAllPublications()
@@ -155,31 +153,32 @@ kotlin {
     sourceSets {
 
         commonMain.dependencies {
-//            implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.9.0")
-            implementation(compose.runtime)
-            implementation(compose.foundation)
-            implementation(compose.material3)
-            implementation(compose.components.resources)
-            implementation(compose.components.uiToolingPreview)
+
+            implementation(libs.kotlinx.coroutines.core)
+//            implementation(compose.runtime)
+//            implementation(compose.foundation)
+//            implementation(compose.material3)
+//            implementation(compose.components.resources)
+//            implementation(compose.components.uiToolingPreview)
         }
 
         commonTest.dependencies {
             implementation(kotlin("test"))
-            @OptIn(ExperimentalComposeLibrary::class)
-            implementation(compose.uiTest)
+//            @OptIn(ExperimentalComposeLibrary::class)
+//            implementation(compose.uiTest)
         }
 
         androidMain.dependencies {
-            implementation(compose.uiTooling)
-            implementation(libs.androidx.activityCompose)
+//            implementation(compose.uiTooling)
+//            implementation(libs.androidx.activityCompose)
         }
 
         jvmMain.dependencies {
-            implementation(compose.desktop.currentOs)
+//            implementation(compose.desktop.currentOs)
         }
 
         jsMain.dependencies {
-            implementation(compose.html.core)
+//            implementation(compose.html.core)
         }
 
         iosMain.dependencies {
@@ -189,6 +188,11 @@ kotlin {
 
         }
         nativeMain.dependencies { }
+
+        wasmJsMain.dependencies {
+            implementation(libs.kotlinx.browser.wasm.js)
+
+        }
 
 
     }
@@ -205,20 +209,20 @@ android {
             sourceCompatibility = JavaVersion.VERSION_1_8
             targetCompatibility = JavaVersion.VERSION_1_8
         }
-        buildFeatures {
-            //enables a Compose tooling support in the AndroidStudio
-            compose = true
-        }
+//        buildFeatures {
+//            //enables a Compose tooling support in the AndroidStudio
+//            compose = true
+//        }
     }
 }
-compose.desktop {
-    application {
-        mainClass = "MainKt"
-
-        nativeDistributions {
-            targetFormats(TargetFormat.Dmg, TargetFormat.Msi, TargetFormat.Deb)
-            packageName = "io.github.kmmcrypto.desktopApp"
-            packageVersion = "1.0.0"
-        }
-    }
-}
+//compose.desktop {
+//    application {
+//        mainClass = "MainKt"
+//
+//        nativeDistributions {
+//            targetFormats(TargetFormat.Dmg, TargetFormat.Msi, TargetFormat.Deb)
+//            packageName = "io.github.kmmcrypto.desktopApp"
+//            packageVersion = "1.0.0"
+//        }
+//    }
+//}
