@@ -42,7 +42,7 @@ tasks.withType<PublishToMavenRepository> {
 
 
 mavenPublishing {
-    coordinates("io.github.the-best-is-best", "kmm-crypto", "1.1.2")
+    coordinates("io.github.the-best-is-best", "kmm-crypto", "1.1.3")
 
     publishToMavenCentral(SonatypeHost.S01, true)
     signAllPublications()
