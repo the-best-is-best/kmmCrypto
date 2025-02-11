@@ -58,7 +58,6 @@ AndroidKMMCrypto.init(this, "key0") // add alias key name
     val kmmCrypto = KMMCrypto()
     scope.launch {
       val data = kmmCrypto.loadData("test", "group")
-      println("data loaded $data")
     }  
 
 ```

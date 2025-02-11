@@ -16,10 +16,8 @@ actual class KMMCrypto {
             key, group, data
         ) { e ->
             if (e != null) {
-                println("error: ${e.localizedDescription}")
                 return@saveWithService
             }
-            println("data saved")
         }
 
     }
@@ -29,10 +27,8 @@ actual class KMMCrypto {
             key, group, data
         ) { e ->
             if (e != null) {
-                println("error: ${e.localizedDescription}")
                 return@saveDataTypeWithService
             }
-            println("data saved")
 
         }
     }
