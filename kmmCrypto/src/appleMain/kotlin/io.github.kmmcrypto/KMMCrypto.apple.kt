@@ -1,6 +1,6 @@
 package io.github.kmmcrypto
 
-import cocoapods.KServices.KServices
+import io.github.kmmcrypto.ios_crypto.IOSCrypto
 import kotlinx.cinterop.ExperimentalForeignApi
 import kotlinx.coroutines.suspendCancellableCoroutine
 import platform.Foundation.NSData
@@ -12,7 +12,7 @@ import kotlin.coroutines.resumeWithException
 actual class KMMCrypto {
     actual fun saveData(key: String, group: String, data: String) {
 
-        KServices.saveWithService(
+        IOSCrypto.saveWithService(
             key, group, data
         ) { e ->
             if (e != null) {
@@ -23,7 +23,7 @@ actual class KMMCrypto {
     }
 
     fun saveDataType(key: String, group: String, data: NSData) {
-        KServices.saveDataTypeWithService(
+        IOSCrypto.saveDataTypeWithService(
             key, group, data
         ) { e ->
             if (e != null) {
@@ -36,7 +36,7 @@ actual class KMMCrypto {
 
     actual suspend fun loadData(key: String, group: String): String? {
         return suspendCancellableCoroutine { continuation ->
-            KServices.getWithService(key, group) { v, e ->
+            IOSCrypto.getWithService(key, group) { v, e ->
                 if (e == null) {
                     continuation.resume(v)  // Resume with the result
                 } else {
@@ -53,7 +53,7 @@ actual class KMMCrypto {
 
     suspend fun loadDataType(key: String, group: String): NSData? {
         return suspendCancellableCoroutine { continuation ->
-            KServices.getDataTypeWithService(key, group) { v, e ->
+            IOSCrypto.getDataTypeWithService(key, group) { v, e ->
                 if (e == null) {
                     continuation.resume(v)  // Resume with the result
                 } else {
@@ -65,7 +65,7 @@ actual class KMMCrypto {
     }
 
     actual fun deleteData(key: String, group: String) {
-        KServices.deleteDataWithService(key, group)
+        IOSCrypto.deleteDataWithService(key, group)
     }
 
 }

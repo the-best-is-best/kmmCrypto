@@ -11,7 +11,8 @@ plugins {
 //    alias(libs.plugins.compose.compiler)
 //    alias(libs.plugins.compose)
     alias(libs.plugins.android.library)
-    alias(libs.plugins.native.cocoapods)
+//    alias(libs.plugins.native.cocoapods)
+    id("io.github.ttypic.swiftklib") version "0.6.4"
 
     id("maven-publish")
     id("signing")
@@ -42,7 +43,7 @@ tasks.withType<PublishToMavenRepository> {
 
 
 mavenPublishing {
-    coordinates("io.github.the-best-is-best", "kmm-crypto", "1.1.3")
+    coordinates("io.github.the-best-is-best", "kmm-crypto", "1.1.4")
 
     publishToMavenCentral(SonatypeHost.S01, true)
     signAllPublications()
@@ -122,34 +123,41 @@ kotlin {
     ).forEach {
         it.binaries.framework {
             baseName = "KMMCtypto"
-            isStatic = true
+            isStatic = false
+        }
+        it.compilations {
+            val main by getting {
+                cinterops {
+                    create("IOSCrypto")
+                }
+            }
         }
     }
 
 
-
-    cocoapods {
-        version = "1.0"
-        summary = "Some description for a Kotlin/Native module"
-        homepage = "Link to a Kotlin/Native module homepage"
-
-        // Optional properties
-        // Configure the Pod name here instead of changing the Gradle project name
-        name = "KMMCtypto"
-
-        framework {
-            baseName = "KMMCtypto"
-        }
-        noPodspec()
-        ios.deploymentTarget = "12.0"  // Adjust this version to match KServices
-
-        pod("KServices") {
-            version = "0.2.2"
-            extraOpts += listOf("-compiler-option", "-fmodules")
-
-        }
-
-    }
+//
+//    cocoapods {
+//        version = "1.0"
+//        summary = "Some description for a Kotlin/Native module"
+//        homepage = "Link to a Kotlin/Native module homepage"
+//
+//        // Optional properties
+//        // Configure the Pod name here instead of changing the Gradle project name
+//        name = "KMMCtypto"
+//
+//        framework {
+//            baseName = "KMMCtypto"
+//        }
+//        noPodspec()
+//        ios.deploymentTarget = "12.0"  // Adjust this version to match KServices
+//
+//        pod("KServices") {
+//            version = "0.2.2"
+//            extraOpts += listOf("-compiler-option", "-fmodules")
+//
+//        }
+//
+//    }
     sourceSets {
 
         commonMain.dependencies {
@@ -226,3 +234,10 @@ android {
 //        }
 //    }
 //}
+
+swiftklib {
+    create("IOSCrypto") {
+        path = file("native/IOSCrypto")
+        packageName("io.github.kmmcrypto.ios_crypto")
+    }
+}
