@@ -2,8 +2,6 @@
 
 import com.vanniktech.maven.publish.SonatypeHost
 import org.gradle.nativeplatform.platform.internal.DefaultNativePlatform.getCurrentOperatingSystem
-import org.jetbrains.kotlin.gradle.ExperimentalKotlinGradlePluginApi
-import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 import org.jetbrains.kotlin.gradle.plugin.KotlinSourceSetTree
 
 plugins {
@@ -12,7 +10,7 @@ plugins {
 //    alias(libs.plugins.compose)
     alias(libs.plugins.android.library)
 //    alias(libs.plugins.native.cocoapods)
-    id("io.github.ttypic.swiftklib") version "0.6.4"
+//    id("io.github.ttypic.swiftklib") version "0.6.4"
 
     id("maven-publish")
     id("signing")
@@ -43,7 +41,7 @@ tasks.withType<PublishToMavenRepository> {
 
 
 mavenPublishing {
-    coordinates("io.github.the-best-is-best", "kmm-crypto", "1.1.4")
+    coordinates("io.github.the-best-is-best", "kmm-crypto", "1.2.0")
 
     publishToMavenCentral(SonatypeHost.S01, true)
     signAllPublications()
@@ -84,25 +82,12 @@ signing {
 }
 
 kotlin {
+    jvmToolchain(17)
     androidTarget {
-        compilations.all {
-            compileTaskProvider {
-                compilerOptions {
-                    jvmTarget.set(JvmTarget.JVM_1_8)
-                    freeCompilerArgs.add("-Xjdk-release=${JavaVersion.VERSION_1_8}")
-                }
-            }
-        }
         //https://www.jetbrains.com/help/kotlin-multiplatform-dev/compose-test.html
-        @OptIn(ExperimentalKotlinGradlePluginApi::class)
-        instrumentedTestVariant {
-            sourceSetTree.set(KotlinSourceSetTree.test)
-            dependencies {
-                debugImplementation(libs.androidx.testManifest)
-                implementation(libs.androidx.junit4)
-            }
-        }
+        instrumentedTestVariant.sourceSetTree.set(KotlinSourceSetTree.test)
     }
+
 
     jvm()
 
@@ -116,19 +101,36 @@ kotlin {
         binaries.executable()
     }
 
-    listOf(
-        iosX64(),
-        iosArm64(),
-        iosSimulatorArm64()
-    ).forEach {
-        it.binaries.framework {
-            baseName = "KMMCtypto"
-            isStatic = false
-        }
-        it.compilations {
-            val main by getting {
-                cinterops {
-                    create("IOSCrypto")
+    kotlin {
+        // iOS targets configuration
+        val iosTargets = listOf(
+            iosX64(),        // Intel simulators
+            iosArm64(),      // Apple Silicon (M1/M2) devices and simulators
+            iosSimulatorArm64()  // Apple Silicon simulators (explicit)
+        )
+
+        iosTargets.forEach { target ->
+            target.binaries.framework {
+                baseName = "KMMCrypto"
+                isStatic = false
+            }
+
+            target.compilations.getByName("main").cinterops {
+                val kmmcrypto by creating {
+                    // Use different .def files based on target
+                    when (target.konanTarget.family) {
+                        org.jetbrains.kotlin.konan.target.Family.IOS -> {
+                            if (target.konanTarget.architecture == org.jetbrains.kotlin.konan.target.Architecture.ARM64) {
+                                defFile(project.file("native/kmmcrypto_arm.def"))
+                            } else {
+                                defFile(project.file("native/kmmcrypto_simulator.def"))
+                            }
+                        }
+
+                        else -> defFile(project.file("native/kmmcrypto_simulator.def"))
+
+                    }
+                    packageName("io.native.kmmcrypto")
                 }
             }
         }
@@ -179,6 +181,9 @@ kotlin {
         androidMain.dependencies {
 //            implementation(compose.uiTooling)
 //            implementation(libs.androidx.activityCompose)
+            implementation(libs.androidx.startup.runtime)
+            implementation(libs.androidx.annotation)
+
         }
 
         jvmMain.dependencies {
@@ -235,9 +240,4 @@ android {
 //    }
 //}
 
-swiftklib {
-    create("IOSCrypto") {
-        path = file("native/IOSCrypto")
-        packageName("io.github.kmmcrypto.ios_crypto")
-    }
-}
+

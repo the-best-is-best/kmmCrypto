@@ -31,7 +31,8 @@ internal class CryptoKeyStore {
         private const val RSA_TRANSFORMATION = "RSA/ECB/PKCS1Padding"
         private const val GCM_TAG_LENGTH = 128
         private const val IV_SIZE = 12 // Recommended size for GCM
-        private const val RSA_KEY_ALIAS = "MySecureRSAKey"
+        private val RSA_KEY_ALIAS = AndroidKMMCrypto.alias
+
     }
 
     private val keyStore = KeyStore.getInstance(KEY_STORE_PROVIDER).apply { load(null) }
@@ -51,7 +52,8 @@ internal class CryptoKeyStore {
             rsaCipher.init(Cipher.ENCRYPT_MODE, keyPair.public)
             val encryptedAESKey = rsaCipher.doFinal(aesKey.encoded)
 
-            val groupDir = File(AndroidKMMCrypto.activity.filesDir, group).apply { mkdirs() }
+            val groupDir =
+                File(AndroidKMMCrypto.applicationContext.filesDir, group).apply { mkdirs() }
             val file = File(groupDir, key)
             DataOutputStream(FileOutputStream(file)).use { dos ->
                 dos.writeInt(encryptedAESKey.size)
@@ -69,7 +71,7 @@ internal class CryptoKeyStore {
     fun retrieveAndDecrypt(key: String, group: String): String? {
         try {
             val keyPair = getKeyPair()
-            val file = File(AndroidKMMCrypto.activity.filesDir, "$group/$key")
+            val file = File(AndroidKMMCrypto.applicationContext.filesDir, "$group/$key")
 
             if (!file.exists()) return null
 
@@ -100,7 +102,7 @@ internal class CryptoKeyStore {
     }
 
     fun deleteData(key: String, group: String) {
-        val file = File(AndroidKMMCrypto.activity.filesDir, "$group/$key")
+        val file = File(AndroidKMMCrypto.applicationContext.filesDir, "$group/$key")
         if (file.exists()) {
             file.delete()
         }

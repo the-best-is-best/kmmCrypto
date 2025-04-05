@@ -34,7 +34,7 @@ internal class CryptoData {
         val encryptedBytes = cipher.doFinal(data.toByteArray())
 
         // Define the directory and file path
-        val directory = File(AndroidKMMCrypto.activity.filesDir, group)
+        val directory = File(AndroidKMMCrypto.applicationContext.filesDir, group)
         if (!directory.exists()) {
             directory.mkdirs()  // Create the directory if it doesn't exist
         }
@@ -56,7 +56,7 @@ internal class CryptoData {
         }
 
         // Define the directory and file path
-        val directory = File(AndroidKMMCrypto.activity.filesDir, group)
+        val directory = File(AndroidKMMCrypto.applicationContext.filesDir, group)
         val file = File(directory, key)
 
         // Read the IV and encrypted bytes from the file
@@ -91,7 +91,7 @@ internal class CryptoData {
         }
     }
     fun deleteData(key: String, group: String) {
-        val file = File(AndroidKMMCrypto.activity.filesDir, "$group/$key")
+        val file = File(AndroidKMMCrypto.applicationContext.filesDir, "$group/$key")
         if (file.exists()) {
             file.delete()
         }

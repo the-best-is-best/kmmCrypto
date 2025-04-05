@@ -1,16 +1,19 @@
 package io.github.kmmcrypto
 
+import android.content.Context
 import android.os.Build
-import androidx.activity.ComponentActivity
+
 
 
 class AndroidKMMCrypto {
+
     companion object {
-        internal lateinit var activity: ComponentActivity
+        @Volatile
+        internal lateinit var applicationContext: Context
+
         internal lateinit var alias: String
 
-        fun init(context: ComponentActivity, alias: String) {
-            this.activity = context
+        fun init(alias: String) {
             this.alias = alias
         }
     }

@@ -12,7 +12,7 @@ class AppActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
-        AndroidKMMCrypto.init(this, "key0")
+        AndroidKMMCrypto.init("key0")
         setContent { App() }
     }
 }

@@ -21,7 +21,7 @@
 KMM Crypto is available on `mavenCentral()`.
 
 ```kotlin
-implementation("io.github.the-best-is-best:kmm-crypto:1.1.4")
+implementation("io.github.the-best-is-best:kmm-crypto:1.2.0")
 ```
 
 ## Important Note
