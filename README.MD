@@ -24,10 +24,10 @@ KMM Crypto is available on `mavenCentral()`.
 implementation("io.github.the-best-is-best:kmm-crypto:1.2.0")
 ```
 
-## Important Note
+### ✅ **Install via SPM
 
-🔹 Starting from version `1.1.4`, there is **no need to add** `pod 'KServices'` in the `Podfile`. The
-package will work automatically on iOS.
+You can install **IOSCrypto** directly using **Swift Package Manager (SPM)** from:  
+🔗 [IOSCryptoManager-iOS on GitHub](https://github.com/the-best-is-best/IOSCrypto)
 
 ## How to use it
 
@@ -67,4 +67,3 @@ scope.launch {
     kmmCrypto.deleteData("test", "group")
 }
 ```
-
