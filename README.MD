@@ -34,7 +34,7 @@ You can install **IOSCrypto** directly using **Swift Package Manager (SPM)** fro
 ### First in androidMain
 
 ```kotlin
-AndroidKMMCrypto.init(this, "key0") // add alias key name
+AndroidKMMCrypto.init("key0") // add alias key name
 ```
 
 ### Second how in common make save data
