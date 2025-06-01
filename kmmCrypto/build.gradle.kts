@@ -6,12 +6,7 @@ import org.jetbrains.kotlin.gradle.plugin.KotlinSourceSetTree
 
 plugins {
     alias(libs.plugins.multiplatform)
-//    alias(libs.plugins.compose.compiler)
-//    alias(libs.plugins.compose)
     alias(libs.plugins.android.library)
-//    alias(libs.plugins.native.cocoapods)
-//    id("io.github.ttypic.swiftklib") version "0.6.4"
-
     id("maven-publish")
     id("signing")
     alias(libs.plugins.maven.publish)
@@ -41,7 +36,7 @@ tasks.withType<PublishToMavenRepository> {
 
 
 mavenPublishing {
-    coordinates("io.github.the-best-is-best", "kmm-crypto", "1.2.0")
+    coordinates("io.github.the-best-is-best", "kmm-crypto", "1.2.1")
 
     publishToMavenCentral(SonatypeHost.S01, true)
     signAllPublications()
@@ -101,6 +96,16 @@ kotlin {
         binaries.executable()
     }
 
+    js {
+        browser()
+        binaries.executable()
+    }
+
+    wasmJs {
+        browser()
+        binaries.executable()
+    }
+
     kotlin {
         // iOS targets configuration
         val iosTargets = listOf(
@@ -112,7 +117,6 @@ kotlin {
         iosTargets.forEach { target ->
             target.binaries.framework {
                 baseName = "KMMCrypto"
-                isStatic = false
             }
 
             target.compilations.getByName("main").cinterops {
@@ -213,31 +217,9 @@ kotlin {
 
 android {
     namespace = "io.github.kmmcrypto"
-    compileSdk = 35
+    compileSdk = 36
 
     defaultConfig {
         minSdk = 21
-
-        compileOptions {
-            sourceCompatibility = JavaVersion.VERSION_1_8
-            targetCompatibility = JavaVersion.VERSION_1_8
-        }
-//        buildFeatures {
-//            //enables a Compose tooling support in the AndroidStudio
-//            compose = true
-//        }
     }
 }
-//compose.desktop {
-//    application {
-//        mainClass = "MainKt"
-//
-//        nativeDistributions {
-//            targetFormats(TargetFormat.Dmg, TargetFormat.Msi, TargetFormat.Deb)
-//            packageName = "io.github.kmmcrypto.desktopApp"
-//            packageVersion = "1.0.0"
-//        }
-//    }
-//}
-
-

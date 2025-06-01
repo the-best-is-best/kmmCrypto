@@ -11,6 +11,7 @@ class AndroidKMMCrypto {
         @Volatile
         internal lateinit var applicationContext: Context
 
+        @Volatile
         internal lateinit var alias: String
 
         fun init(alias: String) {
@@ -18,6 +19,7 @@ class AndroidKMMCrypto {
         }
     }
 }
+
 
 actual class KMMCrypto {
 
