@@ -1,6 +1,5 @@
 @file:OptIn(org.jetbrains.kotlin.gradle.ExperimentalWasmDsl::class)
 
-import com.vanniktech.maven.publish.SonatypeHost
 import org.gradle.nativeplatform.platform.internal.DefaultNativePlatform.getCurrentOperatingSystem
 import org.jetbrains.kotlin.gradle.plugin.KotlinSourceSetTree
 
@@ -36,9 +35,9 @@ tasks.withType<PublishToMavenRepository> {
 
 
 mavenPublishing {
-    coordinates("io.github.the-best-is-best", "kmm-crypto", "1.2.1")
+    coordinates("io.github.the-best-is-best", "kmm-crypto", "1.3.0")
 
-    publishToMavenCentral(SonatypeHost.S01, true)
+    publishToMavenCentral(true)
     signAllPublications()
 
     pom {
@@ -71,6 +70,10 @@ mavenPublishing {
 }
 
 
+signing {
+    useGpgCmd()
+    sign(publishing.publications)
+}
 signing {
     useGpgCmd()
     sign(publishing.publications)
