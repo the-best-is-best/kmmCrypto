@@ -21,13 +21,13 @@
 KMM Crypto is available on `mavenCentral()`.
 
 ```kotlin
-implementation("io.github.the-best-is-best:kmm-crypto:1.2.1")
+implementation("io.github.the-best-is-best:kmm-crypto:2.0.0")
 ```
 
 ### ✅ **Install via SPM
 
 You can install **IOSCrypto** directly using **Swift Package Manager (SPM)** from:  
-🔗 [IOSCryptoManager-iOS on GitHub](https://github.com/the-best-is-best/IOSCrypto)
+🔗 [IOSCryptoManager-iOS on GitHub](https://github.com/the-best-is-best/IOSCryptoInterop)
 
 ## How to use it
 

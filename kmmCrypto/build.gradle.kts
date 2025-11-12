@@ -35,7 +35,7 @@ tasks.withType<PublishToMavenRepository> {
 
 
 mavenPublishing {
-    coordinates("io.github.the-best-is-best", "kmm-crypto", "1.3.0")
+    coordinates("io.github.the-best-is-best", "kmm-crypto", "2.0.0")
 
     publishToMavenCentral(true)
     signAllPublications()
@@ -125,18 +125,7 @@ kotlin {
             target.compilations.getByName("main").cinterops {
                 val kmmcrypto by creating {
                     // Use different .def files based on target
-                    when (target.konanTarget.family) {
-                        org.jetbrains.kotlin.konan.target.Family.IOS -> {
-                            if (target.konanTarget.architecture == org.jetbrains.kotlin.konan.target.Architecture.ARM64) {
-                                defFile(project.file("native/kmmcrypto_arm.def"))
-                            } else {
-                                defFile(project.file("native/kmmcrypto_simulator.def"))
-                            }
-                        }
-
-                        else -> defFile(project.file("native/kmmcrypto_simulator.def"))
-
-                    }
+                    defFile(project.file("native/ios_crypto_interop.def"))
                     packageName("io.native.kmmcrypto")
                 }
             }

@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		4174EE0C2DECEBA70095EE9E /* kmmcrypto in Frameworks */ = {isa = PBXBuildFile; productRef = 4174EE0B2DECEBA70095EE9E /* kmmcrypto */; };
+		41A61A802EC4DDA300E4AA64 /* IOSCryptoInterop in Frameworks */ = {isa = PBXBuildFile; productRef = 41A61A7F2EC4DDA300E4AA64 /* IOSCryptoInterop */; };
 		A93A953B29CC810C00F8E227 /* iosApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = A93A953A29CC810C00F8E227 /* iosApp.swift */; };
 		A93A953F29CC810D00F8E227 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A93A953E29CC810D00F8E227 /* Assets.xcassets */; };
 		A93A954229CC810D00F8E227 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A93A954129CC810D00F8E227 /* Preview Assets.xcassets */; };
@@ -26,7 +26,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4174EE0C2DECEBA70095EE9E /* kmmcrypto in Frameworks */,
+				41A61A802EC4DDA300E4AA64 /* IOSCryptoInterop in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -121,7 +121,7 @@
 			);
 			mainGroup = A93A952E29CC810C00F8E227;
 			packageReferences = (
-				4174EE0A2DECEBA70095EE9E /* XCRemoteSwiftPackageReference "IOSCrypto" */,
+				41A61A7E2EC4DDA300E4AA64 /* XCRemoteSwiftPackageReference "IOSCryptoInterop" */,
 			);
 			productRefGroup = A93A953829CC810C00F8E227 /* Products */;
 			projectDirPath = "";
@@ -366,21 +366,21 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		4174EE0A2DECEBA70095EE9E /* XCRemoteSwiftPackageReference "IOSCrypto" */ = {
+		41A61A7E2EC4DDA300E4AA64 /* XCRemoteSwiftPackageReference "IOSCryptoInterop" */ = {
 			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/the-best-is-best/IOSCrypto";
+			repositoryURL = "https://github.com/the-best-is-best/IOSCryptoInterop";
 			requirement = {
 				kind = upToNextMajorVersion;
-				minimumVersion = 0.1.0;
+				minimumVersion = 1.0.0;
 			};
 		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		4174EE0B2DECEBA70095EE9E /* kmmcrypto */ = {
+		41A61A7F2EC4DDA300E4AA64 /* IOSCryptoInterop */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 4174EE0A2DECEBA70095EE9E /* XCRemoteSwiftPackageReference "IOSCrypto" */;
-			productName = kmmcrypto;
+			package = 41A61A7E2EC4DDA300E4AA64 /* XCRemoteSwiftPackageReference "IOSCryptoInterop" */;
+			productName = IOSCryptoInterop;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
