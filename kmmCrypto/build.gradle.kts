@@ -1,11 +1,10 @@
 @file:OptIn(org.jetbrains.kotlin.gradle.ExperimentalWasmDsl::class)
 
 import org.gradle.nativeplatform.platform.internal.DefaultNativePlatform.getCurrentOperatingSystem
-import org.jetbrains.kotlin.gradle.plugin.KotlinSourceSetTree
 
 plugins {
     alias(libs.plugins.multiplatform)
-    alias(libs.plugins.android.library)
+    alias(libs.plugins.androidKotlinMultiplatformLibrary)
     id("maven-publish")
     id("signing")
     alias(libs.plugins.maven.publish)
@@ -81,10 +80,6 @@ signing {
 
 kotlin {
     jvmToolchain(17)
-    androidTarget {
-        //https://www.jetbrains.com/help/kotlin-multiplatform-dev/compose-test.html
-        instrumentedTestVariant.sourceSetTree.set(KotlinSourceSetTree.test)
-    }
 
 
     jvm()
@@ -133,29 +128,6 @@ kotlin {
     }
 
 
-//
-//    cocoapods {
-//        version = "1.0"
-//        summary = "Some description for a Kotlin/Native module"
-//        homepage = "Link to a Kotlin/Native module homepage"
-//
-//        // Optional properties
-//        // Configure the Pod name here instead of changing the Gradle project name
-//        name = "KMMCtypto"
-//
-//        framework {
-//            baseName = "KMMCtypto"
-//        }
-//        noPodspec()
-//        ios.deploymentTarget = "12.0"  // Adjust this version to match KServices
-//
-//        pod("KServices") {
-//            version = "0.2.2"
-//            extraOpts += listOf("-compiler-option", "-fmodules")
-//
-//        }
-//
-//    }
     sourceSets {
 
         commonMain.dependencies {
@@ -178,7 +150,6 @@ kotlin {
 //            implementation(compose.uiTooling)
 //            implementation(libs.androidx.activityCompose)
             implementation(libs.androidx.startup.runtime)
-            implementation(libs.androidx.annotation)
 
         }
 
@@ -205,13 +176,12 @@ kotlin {
 
 
     }
-}
 
-android {
-    namespace = "io.github.kmmcrypto"
-    compileSdk = 36
-
-    defaultConfig {
-        minSdk = 21
+    android {
+        namespace = "io.github.kmmcrypto"
+        compileSdk = 36
+        minSdk = 23
     }
 }
+
+

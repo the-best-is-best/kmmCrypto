@@ -1,9 +1,7 @@
 package io.github.kmmcrypto
 
-import android.os.Build
 import android.security.keystore.KeyGenParameterSpec
 import android.security.keystore.KeyProperties
-import androidx.annotation.RequiresApi
 import java.io.DataInputStream
 import java.io.DataOutputStream
 import java.io.File
@@ -20,7 +18,6 @@ import javax.crypto.SecretKey
 import javax.crypto.spec.GCMParameterSpec
 import javax.crypto.spec.SecretKeySpec
 
-@RequiresApi(Build.VERSION_CODES.M)
 internal class CryptoKeyStore {
 
     companion object {

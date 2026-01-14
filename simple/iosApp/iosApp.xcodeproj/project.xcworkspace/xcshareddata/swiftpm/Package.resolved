@@ -1,13 +1,13 @@
 {
-  "originHash" : "00f372f6016414ed5c10885cec6bf9adb6f2d2ee9c22d6548326765710694f17",
+  "originHash" : "70f575856199c5fbabf373c39010e44c5825657bf459d3f30287d152c479a5c7",
   "pins" : [
     {
-      "identity" : "ioscrypto",
+      "identity" : "ioscryptointerop",
       "kind" : "remoteSourceControl",
-      "location" : "https://github.com/the-best-is-best/IOSCrypto",
+      "location" : "https://github.com/the-best-is-best/IOSCryptoInterop",
       "state" : {
-        "revision" : "6c57d1fb60d2a95d44e1a3fd0a2caeb0a5193e34",
-        "version" : "0.1.0"
+        "revision" : "4fc8aa4a1af0794d08eebd275d2fff3ea79704a8",
+        "version" : "1.0.0"
       }
     }
   ],
