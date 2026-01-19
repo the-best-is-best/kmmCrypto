@@ -31,5 +31,6 @@ dependencyResolutionManagement {
     }
 }
 include(":kmmCrypto")
-include(":simple:composeApp")
+include(":simple:sharedUI")
+include(":simple:androidSimple")
 

@@ -20,7 +20,7 @@ import io.github.sample.theme.AppTheme
 import kotlinx.coroutines.launch
 
 @Composable
-internal fun App() = AppTheme {
+fun App() = AppTheme {
     val scope = rememberCoroutineScope()
     val kmmCrypto = KMMCrypto()
     Column(

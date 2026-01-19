@@ -1,20 +1,16 @@
 import org.jetbrains.compose.desktop.application.dsl.TargetFormat
 import org.jetbrains.kotlin.gradle.ExperimentalWasmDsl
-import org.jetbrains.kotlin.gradle.plugin.KotlinSourceSetTree
 
 plugins {
     alias(libs.plugins.multiplatform)
     alias(libs.plugins.compose.compiler)
     alias(libs.plugins.compose)
-    alias(libs.plugins.android.application)
+    alias(libs.plugins.androidKotlinMultiplatformLibrary)
 }
 
 kotlin {
     jvmToolchain(17)
-    androidTarget {
-        //https://www.jetbrains.com/help/kotlin-multiplatform-dev/compose-test.html
-        instrumentedTestVariant.sourceSetTree.set(KotlinSourceSetTree.test)
-    }
+
 
 
     jvm()
@@ -70,44 +66,14 @@ kotlin {
         }
 
     }
-}
-
-android {
-    signingConfigs {
-        getByName("debug") {
-            storeFile =
-                file("/Users/michelleraouf/Desktop/kmm/kmmCrypto/simple/composeApp/src/androidMain/key")
-            storePassword = "key-pass"
-            keyAlias = "key0"
-            keyPassword = "key-pass"
-        }
-    }
-    namespace = "io.github.sample"
-    compileSdk = 36
-
-    defaultConfig {
+    android {
+        namespace = "io.github.sample"
+        compileSdk = 36
         minSdk = 24
-
-        applicationId = "io.github.sample.androidApp"
-        versionCode = 1
-        versionName = "1.0.0"
-
-        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
-    }
-    sourceSets["main"].apply {
-        manifest.srcFile("src/androidMain/AndroidManifest.xml")
-        res.srcDirs("src/androidMain/res")
     }
 
-    compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_1_8
-        targetCompatibility = JavaVersion.VERSION_1_8
-    }
-    buildFeatures {
-        //enables a Compose tooling support in the AndroidStudio
-        compose = true
-    }
 }
+
 
 compose.desktop {
     application {

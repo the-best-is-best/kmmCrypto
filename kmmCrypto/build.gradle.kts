@@ -34,7 +34,7 @@ tasks.withType<PublishToMavenRepository> {
 
 
 mavenPublishing {
-    coordinates("io.github.the-best-is-best", "kmm-crypto", "2.0.1")
+    coordinates("io.github.the-best-is-best", "kmm-crypto", "2.0.2")
 
     publishToMavenCentral(true)
     signAllPublications()
